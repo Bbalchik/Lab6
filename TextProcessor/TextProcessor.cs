@@ -23,5 +23,64 @@ class Program
         }
 
         Console.ReadLine();
+
+        long sum = 0;
+        int count = 0;
+
+        for (int i = 10; i <= 29; i++)
+        {
+            string fileName = Path.Combine(basePath, i + ".txt");
+
+            try
+            {
+                using StreamReader reader = new StreamReader(fileName);
+
+                string line1 = reader.ReadLine();
+                string line2 = reader.ReadLine();
+
+                int a = int.Parse(line1);
+                int b = int.Parse(line2);
+
+                int product;
+
+                try
+                {
+                    product = checked(a * b);
+                }
+                catch (OverflowException)
+                {
+                    File.AppendAllText(
+                        Path.Combine(basePath, "overflow.txt"),
+                        i + ".txt" + Environment.NewLine
+                    );
+                    continue;
+                }
+
+                sum += product;
+                count++;
+            }
+            catch (FileNotFoundException)
+            {
+                File.AppendAllText(
+                    Path.Combine(basePath, "no_file.txt"),
+                    i + ".txt" + Environment.NewLine
+                );
+            }
+            catch (FormatException)
+            {
+                File.AppendAllText(
+                    Path.Combine(basePath, "bad_data.txt"),
+                    i + ".txt" + Environment.NewLine
+                );
+            }
+            catch (OverflowException)
+            {
+                File.AppendAllText(
+                    Path.Combine(basePath, "bad_data.txt"),
+                    i + ".txt" + Environment.NewLine
+                );
+            }
+        }
+
     }
 }
