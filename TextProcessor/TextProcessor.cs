@@ -22,8 +22,6 @@ class Program
             return;
         }
 
-        Console.ReadLine();
-
         long sum = 0;
         int count = 0;
 
@@ -82,5 +80,11 @@ class Program
             }
         }
 
+        if (count > 0)
+            Console.WriteLine("Середнє арифметичне: " + (sum / (double)count));
+        else
+            Console.WriteLine("Немає коректних добутків.");
+
+        Console.ReadLine();
     }
 }
